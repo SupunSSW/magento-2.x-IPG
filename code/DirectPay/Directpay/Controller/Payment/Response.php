@@ -68,10 +68,10 @@ class Response extends Action
 
                 $order->setState(\Magento\Sales\Model\Order::STATE_PROCESSING, true);
                 $order->setStatus(\Magento\Sales\Model\Order::STATE_PROCESSING);
-                $order->addStatusToHistory($order->getStatus(), 'Payment processed successfully');
+                $order->addStatusToHistory($order->getStatus(), 'Payment Processed Successfully.');
                 $order->save();
 
-                $this->messageManager->addSuccessMessage('Payment wuz Successful!');
+                $this->messageManager->addSuccessMessage('Payment Successful!');
                 $this->_redirect('checkout/onepage/success', array('_secure' => false));
 
             } elseif ($postBody['status'] === 'FAILED') {
