@@ -14,6 +14,8 @@ class DirectPay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     protected $_code = self::CODE;
 
+    protected $_isInitializeNeeded = true;
+
     protected $_isOffline = true;
 
 }

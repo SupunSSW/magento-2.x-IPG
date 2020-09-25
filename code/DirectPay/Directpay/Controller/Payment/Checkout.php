@@ -12,43 +12,28 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Checkout extends Action
 {
-//    protected $resultJsonFactory;
-//    protected $logger;
-//    protected $scopeConfig;
-//    protected $_orderHelper;
+    protected $logger;
+    protected $scopeConfig;
     protected $_checkoutSession;
-    protected $orderRepository;
-//    protected $checkoutHelper;
-//    protected $_order;
-    private $order;
     protected $_storeManager;
-
     protected $_orderFactory;
+    private $order;
 
     public function __construct(
         Context $context,
-        JsonFactory $resultJsonFactory,
         LoggerInterface $logger,
         StoreManagerInterface $storeManager,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \DirectPay\Directpay\Helper\OrderData $orderHelper,
-        \Magento\Checkout\Helper\Data $checkoutHelper,
-        \Magento\Sales\Model\Order $_order,
         \Magento\Checkout\Model\Session $checkoutSession,
-        \Magento\Sales\Api\OrderRepositoryInterface $orderRepository,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Sales\Api\Data\OrderInterface $order
 
 
     )
     {
-        $this->resultJsonFactory = $resultJsonFactory;
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
-        $this->checkoutHelper = $checkoutHelper;
-        $this->_order = $_order;
         $this->_checkoutSession = $checkoutSession;
-        $this->orderRepository = $orderRepository;
         $this->_orderFactory = $orderFactory;
         $this->order = $order;
         $this->_storeManager = $storeManager;
@@ -65,92 +50,33 @@ class Checkout extends Action
 
     public function execute()
     {
-//        try {
-//            $order = $this->getOrder();
-//            if ($order->getState() === Order::STATE_PENDING_PAYMENT) {
-//                $payload = $this->getPayload($order);
-//                $this->postToCheckout($this->getGatewayConfig()->getGatewayUrl(), $payload);
-//            } else if ($order->getState() === Order::STATE_CANCELED) {
-//                $errorMessage = $this->getCheckoutSession()->getOxipayErrorMessage(); //set in InitializationRequest
-//                if ($errorMessage) {
-//                    $this->getMessageManager()->addWarningMessage($errorMessage);
-//                    $errorMessage = $this->getCheckoutSession()->unsOxipayErrorMessage();
-//                }
-//                $this->getCheckoutHelper()->restoreQuote(); //restore cart
-//                $this->_redirect('checkout/cart');
-//            } else {
-//                $this->getLogger()->debug('Order in unrecognized state: ' . $order->getState());
-//                $this->_redirect('checkout/cart');
-//            }
-//        } catch (Exception $ex) {
-//            $this->getLogger()->debug('An exception was encountered in oxipay/checkout/index: ' . $ex->getMessage());
-//            $this->getLogger()->debug($ex->getTraceAsString());
-//            $this->getMessageManager()->addErrorMessage(__('Unable to start Oxipay Checkout.'));
-//        }
+        try {
+            $order = $this->getOrder();
 
-//        $PostValue = $this->getRequest()->getPost();
-//        $this->logger->debug(json_encode($this->configDetails));
-//        print_r($PostValue);
-//        echo 'ss';
+            if ($order->getStatus() === 'pending') {
 
-//        $_orderId = $this->getRequest()->getParams();
-////        $_order = $this->_order->load($_orderId);
-//
-////        $_items = $_order->getAllItems();
-//
-//        $this->logger->debug(json_encode($_items));
+                $paymode = $this->scopeConfig->getValue('payment/directpay/pay_mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
-        $paymode = $this->scopeConfig->getValue('payment/directpay/pay_mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+                $checkout_url = '';
 
-        $checkout_url = '';
+                if ($paymode == 1) {
+                    $checkout_url = "https://testpay.directpay.lk";
+                } else if ($paymode == 0) {
+                    $checkout_url = "https://testpay.directpay.lk";
+                }
 
-        if ($paymode == 1) {
-            $checkout_url = "https://testpay.directpay.lk";
-        } else if ($paymode == 0) {
-            $checkout_url = "https://testpay.directpay.lk";
+                $this->postToCheckout($checkout_url, $this->getPayload($order));
+
+            } else {
+                $this->logger->debug('Order in unrecognized state: ' . $order->getState());
+                $this->_redirect('checkout/cart');
+            }
+        } catch (Exception $ex) {
+            $this->logger->debug('An exception was encountered in directpay/payment/checkout: ' . $ex->getMessage());
+            $this->logger->debug($ex->getTraceAsString());
+            $this->getMessageManager()->addErrorMessage(__('Unable to Checkout.'));
+            $this->_redirect('checkout/cart');
         }
-
-        $incrementId = $this->_checkoutSession->getLastRealOrderId();
-//        $order       = $this->orderFactory->create()->loadByIncrementId($incrementId);
-
-
-        $order = $this->getOrder();
-
-        $this->logger->debug(json_encode($paymode));
-//        $this->logger->debug(json_encode($baseUrl));
-        $this->logger->debug(json_encode($order->getState()));
-        $this->logger->debug(json_encode($order->getId()));
-        $this->logger->debug(json_encode($order->getGrandTotal()));
-//        $this->logger->debug(json_encode($order->getTotal()));
-        $this->logger->debug(json_encode($incrementId));
-        $this->logger->debug(json_encode($incrementId));
-        $this->logger->debug(json_encode($order->getOrderCurrencyCode()));
-        $this->logger->debug(json_encode($order->getTotalDue()));
-        $this->logger->debug(json_encode($order->getData('customer_email')));
-        $this->logger->debug(json_encode($order->getCustomerFirstname()));
-        $this->logger->debug(json_encode($order->getCustomerLastname()));
-        $this->logger->debug(json_encode(Order::STATE_PENDING_PAYMENT));
-        $this->logger->debug(json_encode(Order::STATE_PENDING_PAYMENT));
-        $this->logger->debug(json_encode($this->getPayload($order)));
-        $this->logger->debug('');
-
-        $this->postToCheckout($checkout_url, $this->getPayload($order));
-
-
-//        if ($incrementId) {
-//            $this->logger->debug('add');
-////            $thisOrder = $this->order->loadByIncrementId($incrementId);
-//            $thisOrder = $this->order->loadByIncrementId('000000011');
-////            $order = $this->_orderFactory->create()->loadByIncrementId($incrementId);
-//            $this->logger->debug('add');
-//            $this->logger->debug(json_encode($thisOrder));
-//            $this->logger->debug(json_encode($thisOrder->getShippingAddress()));
-//            $this->logger->debug(json_encode($thisOrder->getId()));
-//            $orderData = $this->orderRepository->get($thisOrder->getId());
-//            $this->logger->debug(json_encode($orderData));
-//
-//
-//        }
 
     }
 
@@ -178,6 +104,7 @@ class Checkout extends Action
     {
         if ($order == null) {
             $this->logger->debug('Unable to get order from last order id.');
+            $this->getMessageManager()->addErrorMessage(__('Order Not Found!'));
             $this->_redirect('checkout/onepage/error', array('_secure' => false));
         }
 
@@ -242,11 +169,8 @@ class Checkout extends Action
 
         $signature = null;
         $pkeyid = openssl_pkey_get_private($privateKey);
-        //Generate signature
         $signResult = openssl_sign($dataString, $signature, $pkeyid, OPENSSL_ALGO_SHA256);
-        //Base64 encode the signature
         $signature = base64_encode($signature);
-        //Free the key from memory
         openssl_free_key($pkeyid);
 
         $data['signature'] = $signature;

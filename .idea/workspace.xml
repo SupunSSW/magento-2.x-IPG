@@ -20,12 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efeb0418-f5e2-4b74-94c6-9293d670e3e8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Page/View.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Failed.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Success.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Model/Payment/DirectPay.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Model/Payment/DirectPay.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Observer/OrderSaveAfter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/adminhtml/system.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/adminhtml/system.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/events.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/module.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/module.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/template/payment/directpay.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/template/payment/directpay.html" afterDir="false" />
     </list>
@@ -61,7 +65,8 @@
       <option name="presentableId" value="Default" />
       <updated>1600750437429</updated>
       <workItem from="1600750439218" duration="21696000" />
-      <workItem from="1600926678244" duration="20126000" />
+      <workItem from="1600926678244" duration="20554000" />
+      <workItem from="1601005029304" duration="25666000" />
     </task>
     <servers />
   </component>
@@ -78,6 +83,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="141" y="55" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600948376517">

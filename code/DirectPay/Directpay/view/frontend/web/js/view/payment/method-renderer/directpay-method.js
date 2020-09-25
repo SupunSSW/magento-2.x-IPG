@@ -31,8 +31,9 @@ define(
             defaults: {
                 template: 'DirectPay_Directpay/payment/directpay'
             },
-            getMailingAddress: function () {
-                return window.checkoutConfig.payment.checkmo.mailingAddress;
+            initialize: function() {
+                this._super();
+                self = this;
             },
             getCode: function () {
                 return 'directpay';
@@ -41,35 +42,21 @@ define(
                 return true;
             },
             redirectAfterPlaceOrder: false,
-            // placeOrder: function () {
-            //     var self = this;
-            //     selectPaymentMethodAction(this.getData());
-            //     placeOrderAction(self.getData(), self.messageContainer).done(function () {
-            //         fullScreenLoader.startLoader();
-            //         customerData.invalidate(['cart']);
-            //     });
-            //     return false;
-            // },
             getData: function() {
                 return {
                     'method': this.item.method
                 };
             },
             placeMyOrder : function () {
-                console.log(this.placeOrder())
-                location.replace(url.build('directpay/payment/checkout'))
+                console.log(window.checkoutConfig.directpay);
+            },
+            afterPlaceOrder : function () {
+                window.location.replace(url.build('directpay/payment/checkout'));
+            },
+            getDirectPayLogo : function(){
+                var logo = window.checkoutConfig.payment.oxipay_gateway.logo;
 
-                console.log(window.checkoutConfig.directpay.merchant_id)
-                console.log(window.checkoutConfig.directpay.pay_mode)
-                console.log(window.checkoutConfig.directpay.api_key)
-                console.log(window.checkoutConfig.directpay.privateKey)
-                console.log(window.checkoutConfig.directpay.pay_mode == '0' ? false : true)
-                console.log(quote.totals().grand_total)
-                console.log(quote.getQuoteId())
-                console.log(customer.customerData.email)
-                console.log(quote.totals().base_currency_code)
-                console.log(quote.billingAddress().telephone)
-                console.log(quote.billingAddress().firstname + ' ' + quote.billingAddress().lastname + ', ' + quote.billingAddress().street + ', ' + quote.billingAddress().postcode + ', ' + quote.billingAddress().city)
+                return logo;
             },
             dismissOrder: function () {
                 fullScreenLoader.startLoader();

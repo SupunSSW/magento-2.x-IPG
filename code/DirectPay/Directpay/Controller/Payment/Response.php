@@ -12,95 +12,91 @@ use Magento\Sales\Model\Order;
 class Response extends Action
 {
     protected $logger;
-
+    protected $resultRedirectFactory;
+    protected $scopeConfig;
     protected $_orderFactory;
+    protected $_quoteFactory;
+    protected $_checkoutSession;
 
     public function __construct(
+        \Magento\Quote\Model\QuoteFactory $quoteFactory,
+        \Magento\Checkout\Model\Session $checkoutSession,
+        \Magento\Framework\Controller\Result\RedirectFactory $resultRedirectFactory,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \Magento\Sales\Model\OrderFactory $orderFactory,
         Context $context,
         LoggerInterface $logger
 
     )
     {
+        $this->_quoteFactory = $quoteFactory;
+        $this->_checkoutSession = $checkoutSession;
+        $this->resultRedirectFactory = $resultRedirectFactory;
+        $this->scopeConfig = $scopeConfig;
+        $this->_orderFactory = $orderFactory;
+        $this->_checkoutSession = $checkoutSession;
         $this->logger = $logger;
         parent::__construct($context);
     }
 
+    public function getOrder()
+    {
+        if ($this->_checkoutSession->getLastRealOrderId()) {
+            return $this->_orderFactory->create()->loadByIncrementId($this->_checkoutSession->getLastRealOrderId());
+        }
+        return false;
+    }
 
     public function execute()
     {
+        $publicKey = $this->scopeConfig->getValue('payment/directpay/publicKey', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
-        $this->logger->debug('debug response');
+        $postBody = $this->getRequest()->getParams();
 
-//        https://127.0.1.1/directpay/payment/response?orderId=17&trnId=78512&status=FAILED&desc=Issuer%20or%20switch%20inoperative&type=ONE_TIME&signature=fP1snUR1pT6jK1AH1ZAXY032icCFp7eIoIBQoP1TFwoOZJjqBghMObf%2BmX48mv8ONDPk7s%2FVvdxIlo6lz8%2F5Vw%3D%3D
-//        orderId=17&
-//          trnId=78512&
-//          status=FAILED&
-//          desc=Issuer%20or%20switch%20inoperative&
-//          type=ONE_TIME&
-//          signature=fP1snUR1pT6jK1AH1ZAXY032icCFp7eIoIBQoP1TFwoOZJjqBghMObf%2BmX48mv8ONDPk7s%2FVvdxIlo6lz8%2F5Vw%3D%3D
+        $this->logger->debug(json_encode($postBody));
 
-//        if($this->getRequest()->isPost()) {
-//
-//            // If post request came from directpay server
-//
-//            // if($_SERVER['REMOTE_ADDR']=="18.216.3.222"){
-//
-//            // 	$postBody = $this->getRequest()->getRawBody();
-//            // 	$postBoj = json_decode($postBody);
-//
-//            // 	$order = Mage::getModel('sales/order');
-//            // 	$order->loadByIncrementId($postBoj->orderId);
-//            // 	$order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, 'Gateway has authorized the payment.');
-//
-//            // 	$order->sendNewOrderEmail();
-//            // 	$order->setEmailSent(true);
-//
-//            // 	$order->save();
-//
-//            // }
-//
-//            $postBody = $this->getRequest()->getRawBody();
-//            $postObject = json_decode($postBody);
-//
-//            $pubKeyid = "-----BEGIN PUBLIC KEY-----
-//			MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1Jc9tLbi1OIxpFzJX0DE
-//			sMh8J9VyVV67Rqp/qb8YJfK6QOSl7r0/6eOXhemxjGsXzs6RyaJ8Iqn4xr4H0jJs
-//			1kEIWyr0s2pOzyb/rovHDsITJkHadaYiNqOWWzeeozATi518bcBoyRaGnmspaWsF
-//			AGkVyXroEi/ZnjFXkLlwY5cKXDwyMeJSeTwNsklkiiVW7/moAINId4Gz/bCMDIZh
-//			T5kxbEL1xlX+wFvxLpAKweUWS2yNoxcP8DrlvjKfCLHIpzHpHVKmdO9OE0DXpLCZ
-//			9PtufTvDWQV2ZftL4POvwF47kCpRUE+6qFzw8//dQONKRTmy4alPls0jZu0tfGcw
-//			OQIDAQAB
-//			-----END PUBLIC KEY-----";
-//
-//            $signature = $postObject->signature;
-//
-//            $dataString =  $postObject->orderId.$postObject->trnId.$postObject->status.$postObject->desc;
-//
-//            $signatureVerify = openssl_verify($dataString, base64_decode($signature), $pubKeyid, OPENSSL_ALGO_SHA256);
-//
-//            // if ($signatureVerify == 1) {
-//            $order = Mage::getModel('sales/order');
-//            $order->loadByIncrementId($postObject->orderId);
-//            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, 'Gateway has authorized the payment.');
-//
-//            $order->sendNewOrderEmail();
-//            $order->setEmailSent(true);
-//
-//            $order->save();
-//            // }
-//
-//        }
-//        else{
-//            Mage::getSingleton('checkout/session')->unsQuoteId();
-//            Mage_Core_Controller_Varien_Action::_redirect('checkout/onepage/success', array('_secure'=>true));
-//        }
+        $signature = $postBody['signature'];
+        $dataString = $postBody['orderId'] . $postBody['trnId'] . $postBody['status'] . $postBody['desc'];
+
+        $signatureVerify = openssl_verify($dataString, base64_decode($signature), $publicKey, OPENSSL_ALGO_SHA256);
+
+        if ($signatureVerify) {
+
+            $order = $this->getOrder();
+
+            if ($postBody['status'] === 'SUCCESS') {
+
+                $order->setState(\Magento\Sales\Model\Order::STATE_PROCESSING, true);
+                $order->setStatus(\Magento\Sales\Model\Order::STATE_PROCESSING);
+                $order->addStatusToHistory($order->getStatus(), 'Payment processed successfully');
+                $order->save();
+
+                $this->messageManager->addSuccessMessage('Payment wuz Successful!');
+                $this->_redirect('checkout/onepage/success', array('_secure' => false));
+
+            } elseif ($postBody['status'] === 'FAILED') {
+
+                $order = $this->_checkoutSession->getLastRealOrder();
+                $quote = $this->_quoteFactory->create()->loadByIdWithoutStore($order->getQuoteId());
+
+                if ($quote->getId()) {
+                    $quote->setIsActive(1)->setReservedOrderId(null)->save();
+                    $this->_checkoutSession->replaceQuote($quote);
+                }
+
+                $this->messageManager->addErrorMessage('Payment Failed!');
+                $this->_redirect('checkout/cart', array('_secure' => false));
+
+            } else {
+                $this->messageManager->addErrorMessage('Payment Failed! Invalid Payment Response.');
+                $this->_redirect('checkout/cart', array('_secure' => false));
+            }
 
 
-//        $postBody = $this->getRequest();
-        $postBody = $this->getRequest()->getContent();
-        $this->logger->debug('res');
-        $this->logger->debug($postBody);
-
+        } else {
+            $this->messageManager->addErrorMessage('Payment Failed! Invalid Payment.');
+            $this->_redirect('checkout/cart', array('_secure' => false));
+        }
 
     }
 

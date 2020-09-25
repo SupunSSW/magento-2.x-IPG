@@ -9,12 +9,11 @@
     <default>
         <payment>
             <directpay>
-                <active>1</active>
                 <model>DirectPay\Directpay\Model\Payment\DirectPay</model>
-                <order_status>pending</order_status>
                 <title>DirectPay</title>
-                <group>offline</group>
-                <!-- <payment_action>authorize_capture</payment_action> -->
+                <active>1</active>
+                <order_status>pending</order_status>
+                <can_initialize>1</can_initialize>
             </directpay>
             <!-- payment-config -->
         </payment>

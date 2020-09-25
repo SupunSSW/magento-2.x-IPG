@@ -1,1 +1,7 @@
-\.idea
+design
+etc
+.htaccess
+.idea
+autoload.php
+bootstrap.php
+functions.php
