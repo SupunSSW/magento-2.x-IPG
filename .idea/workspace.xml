@@ -20,15 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efeb0418-f5e2-4b74-94c6-9293d670e3e8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/code/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/adminhtml/system.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/adminhtml/system.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/config.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/frontend/di.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/frontend/di.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/module.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/module.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/layout/checkout_index_index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/layout/checkout_index_index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/directpay.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/directpay.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/code/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,8 +44,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/code/DirectPay/Directpay" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/code" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/code/DirectPay/Directpay" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
