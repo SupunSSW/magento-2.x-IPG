@@ -20,19 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efeb0418-f5e2-4b74-94c6-9293d670e3e8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Index/Index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/old/Failed.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/old/Index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/old/Success.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Helper/OrderData.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Model/Config/Source/Cctype.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Model/Config/Source/Order/Status/Pendingpayment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/payment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/layout/checkout_index_index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/layout/checkout_index_index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/template/payment/directpay.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/template/payment/directpay.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
