@@ -65,7 +65,7 @@ class Checkout extends Action
                 $paymode = $this->scopeConfig->getValue('payment/directpay/pay_mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
                 if (!$paymode) {
-                    $checkout_url = "https://testpay.directpay.lk";
+                    $checkout_url = "https://pay.directpay.lk";
                 } else {
                     $checkout_url = "https://testpay.directpay.lk";
                 }

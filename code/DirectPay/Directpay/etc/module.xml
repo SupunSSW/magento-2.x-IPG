@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <!--
 /**
-* @copyright Copyright (c) 2015 X.commerce, Inc. (http://www.magentocommerce.com)
-*/
+ * Supun Sadeepa
+ * Magento 2.x DirectPay_IPG plugin
+ */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
   <module name="DirectPay_Directpay" setup_version="2.0.0">

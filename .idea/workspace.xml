@@ -20,7 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efeb0418-f5e2-4b74-94c6-9293d670e3e8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/template/payment/directpay.html" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/template/payment/directpay.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/adminhtml/system.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/adminhtml/system.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/frontend/di.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/frontend/di.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/module.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/etc/module.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/layout/checkout_index_index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/layout/checkout_index_index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/directpay.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/directpay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/view/frontend/web/js/view/payment/method-renderer/directpay-method.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
