@@ -50,10 +50,7 @@ class Response extends Action
     public function execute()
     {
         $publicKey = $this->scopeConfig->getValue('payment/directpay/publicKey', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-
         $postBody = $this->getRequest()->getParams();
-
-        $this->logger->debug(json_encode($postBody));
 
         $signature = $postBody['signature'];
         $dataString = $postBody['orderId'] . $postBody['trnId'] . $postBody['status'] . $postBody['desc'];
@@ -71,22 +68,19 @@ class Response extends Action
                 $order->addStatusToHistory($order->getStatus(), 'Payment Processed Successfully.');
                 $order->save();
 
+                $quote = $this->_quoteFactory->create()->loadByIdWithoutStore($order->getQuoteId());
+
+                if ($quote->getId()) {
+                    $quote->setIsActive(0)->setReservedOrderId(null)->save();
+                    $this->_checkoutSession->replaceQuote($quote);
+                }
+
                 $this->messageManager->addSuccessMessage('Payment Successful!');
                 $this->_redirect('checkout/onepage/success', array('_secure' => false));
 
             } elseif ($postBody['status'] === 'FAILED') {
-
-                $order = $this->_checkoutSession->getLastRealOrder();
-                $quote = $this->_quoteFactory->create()->loadByIdWithoutStore($order->getQuoteId());
-
-                if ($quote->getId()) {
-                    $quote->setIsActive(1)->setReservedOrderId(null)->save();
-                    $this->_checkoutSession->replaceQuote($quote);
-                }
-
                 $this->messageManager->addErrorMessage('Payment Failed!');
                 $this->_redirect('checkout/cart', array('_secure' => false));
-
             } else {
                 $this->messageManager->addErrorMessage('Payment Failed! Invalid Payment Response.');
                 $this->_redirect('checkout/cart', array('_secure' => false));

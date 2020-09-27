@@ -13,6 +13,7 @@ use Magento\Store\Model\StoreManagerInterface;
 class Checkout extends Action
 {
     protected $logger;
+    protected $_quoteFactory;
     protected $scopeConfig;
     protected $_checkoutSession;
     protected $_storeManager;
@@ -20,6 +21,7 @@ class Checkout extends Action
     private $order;
 
     public function __construct(
+        \Magento\Quote\Model\QuoteFactory $quoteFactory,
         Context $context,
         LoggerInterface $logger,
         StoreManagerInterface $storeManager,
@@ -27,8 +29,6 @@ class Checkout extends Action
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Sales\Api\Data\OrderInterface $order
-
-
     )
     {
         $this->logger = $logger;
@@ -37,6 +37,7 @@ class Checkout extends Action
         $this->_orderFactory = $orderFactory;
         $this->order = $order;
         $this->_storeManager = $storeManager;
+        $this->_quoteFactory = $quoteFactory;
         parent::__construct($context);
     }
 
@@ -52,16 +53,20 @@ class Checkout extends Action
     {
         try {
             $order = $this->getOrder();
+            $quote = $this->_quoteFactory->create()->loadByIdWithoutStore($order->getQuoteId());
+
+            if ($quote->getId()) {
+                $quote->setIsActive(1)->setReservedOrderId(null)->save();
+                $this->_checkoutSession->replaceQuote($quote);
+            }
 
             if ($order->getStatus() === 'pending') {
 
                 $paymode = $this->scopeConfig->getValue('payment/directpay/pay_mode', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
-                $checkout_url = '';
-
-                if ($paymode == 1) {
+                if (!$paymode) {
                     $checkout_url = "https://testpay.directpay.lk";
-                } else if ($paymode == 0) {
+                } else {
                     $checkout_url = "https://testpay.directpay.lk";
                 }
 
@@ -87,7 +92,7 @@ class Checkout extends Action
             <body>
             <form id='directPayCheckoutForm' action='$checkoutUrl' method='post'>";
         foreach ($payload as $key => $value) {
-            echo "<input type='text' id='$key' name='$key' value='" . htmlspecialchars($value, ENT_QUOTES) . "'/>";
+            echo "<input type='hidden' id='$key' name='$key' value='" . htmlspecialchars($value, ENT_QUOTES) . "'/>";
         }
         echo
         '</form>
@@ -124,9 +129,14 @@ class Checkout extends Action
         $email = $order->getData('customer_email');
         $returnUrl = $baseUrl . 'directpay/payment/response';
         $cancelUrl = $returnUrl;
-        $reference = '5';
-        $description = '5';
+        $reference = $orderId;
+        $description = '';
         $responseUrl = $returnUrl;
+
+        foreach ($order->getAllItems() as $item) {
+            $itemData = $item->getData();
+            $description .= $itemData['name'] . ', ';
+        }
 
         $data = array(
             '_mId' => $merchantId,
@@ -140,7 +150,7 @@ class Checkout extends Action
             '_orderId' => $orderId,
             '_pluginName' => $pluginName,
             '_pluginVersion' => $pluginVersion,
-            '_description' => $description,
+            '_description' => substr($description,0, -2),
             '_firstName' => $firstName,
             '_lastName' => $lastName,
             '_email' => $email
@@ -162,7 +172,7 @@ class Checkout extends Action
             $firstName .
             $lastName .
             $email .
-            $description .
+            substr($description,0, -2) .
             $apiKey .
             $responseUrl;
 

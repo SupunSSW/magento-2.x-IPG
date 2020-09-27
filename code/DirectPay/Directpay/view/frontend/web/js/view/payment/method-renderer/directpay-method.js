@@ -47,20 +47,11 @@ define(
                     'method': this.item.method
                 };
             },
-            placeMyOrder : function () {
-                console.log(window.checkoutConfig.directpay);
-            },
             afterPlaceOrder : function () {
                 window.location.replace(url.build('directpay/payment/checkout'));
             },
             getDirectPayLogo : function(){
-                var logo = window.checkoutConfig.payment.oxipay_gateway.logo;
-
-                return logo;
-            },
-            dismissOrder: function () {
-                fullScreenLoader.startLoader();
-                customerData.invalidate(['cart']);
+                return 'https://cdn.directpay.lk/live/gateway/dp_visa_master_logo.png';
             }
         });
     }
