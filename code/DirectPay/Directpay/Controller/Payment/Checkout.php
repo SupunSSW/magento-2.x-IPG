@@ -18,6 +18,7 @@ class Checkout extends Action
     protected $_checkoutSession;
     protected $_storeManager;
     protected $_orderFactory;
+    protected $_formKey;
     private $order;
 
     public function __construct(
@@ -28,6 +29,7 @@ class Checkout extends Action
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory,
+        \Magento\Framework\Data\Form\FormKey $formKey,
         \Magento\Sales\Api\Data\OrderInterface $order
     )
     {
@@ -37,6 +39,7 @@ class Checkout extends Action
         $this->_orderFactory = $orderFactory;
         $this->order = $order;
         $this->_storeManager = $storeManager;
+        $this->_formKey = $formKey;
         $this->_quoteFactory = $quoteFactory;
         parent::__construct($context);
     }
@@ -68,6 +71,7 @@ class Checkout extends Action
                     $checkout_url = "https://pay.directpay.lk";
                 } else {
                     $checkout_url = "https://testpay.directpay.lk";
+//                    $checkout_url = "http://172.168.1.60:8081/initPluginItem";
                 }
 
                 $this->postToCheckout($checkout_url, $this->getPayload($order));
@@ -127,11 +131,11 @@ class Checkout extends Action
         $firstName = $order->getCustomerFirstname();
         $lastName = $order->getCustomerLastname();
         $email = $order->getData('customer_email');
-        $returnUrl = $baseUrl . 'directpay/payment/response';
-        $cancelUrl = $returnUrl;
+        $returnUrl = $baseUrl . 'directpay/payment/redirect';
         $reference = $orderId;
         $description = '';
-        $responseUrl = $returnUrl;
+        $cancelUrl = $baseUrl . 'checkout/cart';
+        $responseUrl = $baseUrl . 'directpay/payment/response';
 
         foreach ($order->getAllItems() as $item) {
             $itemData = $item->getData();
