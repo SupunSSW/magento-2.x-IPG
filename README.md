@@ -4,7 +4,7 @@
 
 >Make sure that `app/` directory is writable.
 
-1. Copy `code` and its contents into `app/` directory.
+1. Copy `code` folder contents into `app/code/` directory.
 2. Run below commands as `root` from `app/` directory.
 ```
 $ cd ..
