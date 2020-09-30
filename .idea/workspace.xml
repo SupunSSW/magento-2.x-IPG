@@ -20,11 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efeb0418-f5e2-4b74-94c6-9293d670e3e8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Redirect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Checkout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" beforeDir="false" afterPath="$PROJECT_DIR$/code/DirectPay/Directpay/Controller/Payment/Response.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/etc/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/etc/config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/autoload.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/NonComposerComponentRegistration.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/config.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/db_schema.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/di.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/env.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/registration_globlist.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/etc/vendor_path.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +55,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/WORK/aia_directpay" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -75,6 +84,7 @@
       <workItem from="1601264930485" duration="45000" />
       <workItem from="1601267047128" duration="5522000" />
       <workItem from="1601358539025" duration="22683000" />
+      <workItem from="1601445982251" duration="455000" />
     </task>
     <servers />
   </component>
